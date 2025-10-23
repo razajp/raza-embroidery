@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+* {
+  transition: all 0.25s ease-in-out;
+  letter-spacing: 0.3px; /* ya jo spacing chahiye */
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  position: absolute;
+  display: none;
+}
