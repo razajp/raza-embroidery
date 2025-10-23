@@ -36,4 +36,23 @@ export const customerController = {
       res.status(500).json({ success: false, message: "Server error" });
     }
   },
+
+  
+  // Toggle customer status
+  async toggleStatus(req, res) {
+    try {
+      const { id } = req.params;
+      const customer = await Customer.findById(id);
+      if (!customer) return res.status(404).json({ success: false, message: "Customer not found" });
+
+      // Toggle status
+      customer.status = customer.status === "active" ? "in_active" : "active";
+      await customer.save();
+
+      res.json({ success: true, data: customer });
+    } catch (error) {
+      console.error("Error toggling status:", error);
+      res.status(500).json({ success: false, message: "Server error" });
+    }
+  },
 };

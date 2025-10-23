@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Store, User, Users, Edit, Trash2, Check, X } from "lucide-react";
+import { Store, Phone, Edit, Trash2, Check, Truck, X } from "lucide-react";
 import Input from "../../components/Input";
 import Table from "../../components/Table";
 import DropdownMenu from "../../components/DropdownMenu";
@@ -8,40 +8,39 @@ import usePageTitle from "../../hooks/usePageTitle";
 import api from "../../utils/api";
 import { useTheme } from "../../context/ThemeContext";
 
-export default function CustomerShow() {
+export default function SupplierShow() {
   const { colors } = useTheme();
-  const [customers, setCustomers] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
   const [filters, setFilters] = useState({});
-  usePageTitle("Show Customers");
+  usePageTitle("Show Suppliers");
 
   useEffect(() => {
-    fetchCustomers();
+    fetchSuppliers();
   }, []);
 
-  const fetchCustomers = async () => {
+  const fetchSuppliers = async () => {
     try {
-      const res = await api.get("/customers/show");
-      setCustomers(res.data.data || []);
+      const res = await api.get("/suppliers/show");
+      setSuppliers(res.data.data || []);
     } catch (err) {
-      console.error("Error fetching customers:", err);
+      console.error("Error fetching suppliers:", err);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this customer?"))
+    if (!window.confirm("Are you sure you want to delete this supplier?"))
       return;
     try {
-      await api.delete(`/customers/delete/${id}`);
-      setCustomers((prev) => prev.filter((c) => c._id !== id));
+      await api.delete(`/suppliers/delete/${id}`);
+      setSuppliers((prev) => prev.filter((c) => c._id !== id));
     } catch (err) {
-      console.error("Error deleting customer:", err);
+      console.error("Error deleting supplier:", err);
     }
   };
 
   const filterConfig = [
-    { type: "text", key: "customer_name", placeholder: "Customer Name", icon: "Store" },
-    { type: "text", key: "person_name", placeholder: "Person Name", icon: "User" },
-    { type: "text", key: "rate", placeholder: "Rate" },
+    { type: "text", key: "supplier_name", placeholder: "Supplier Name" },
+    { type: "text", key: "phone_no", placeholder: "Phone No." },
     {
       type: "select",
       key: "status",
@@ -53,15 +52,15 @@ export default function CustomerShow() {
     },
   ];
 
-  const filteredCustomers = customers.filter((c) => {
+  const filteredSuppliers = suppliers.filter((c) => {
     let match = true;
 
-    if (filters.customer_name)
+    if (filters.supplier_name)
       match =
         match &&
-        c.customer_name
+        c.supplier_name
           .toLowerCase()
-          .includes(filters.customer_name.toLowerCase());
+          .includes(filters.supplier_name.toLowerCase());
     if (filters.person_name)
       match =
         match &&
@@ -85,8 +84,8 @@ export default function CustomerShow() {
         <span
           className={`text-2xl font-bold flex items-center gap-2 leading-0 tracking-wide ${colors.heading}`}
         >
-          <Users size={25} />
-          Customers
+          <Truck size={25} />
+          Suppliers
         </span>
 
         <div className="flex gap-3 items-center">
@@ -102,66 +101,64 @@ export default function CustomerShow() {
       <Table
         headers={[
           { label: "#", key: "index" }, // index not actually sortable, but okay
-          { label: "Customer Name", key: "customer_name" },
-          { label: "Person Name", key: "person_name" },
-          { label: "Rate", key: "rate" },
+          { label: "Supplier Name", key: "supplier_name" },
+          { label: "Phone No.", key: "phone_no" },
           { label: "Status", key: "status", center: true },
           { label: "Action", key: "actions", center: true }, // not really sortable
         ]}
-        rows={filteredCustomers.map((c, i) => ({
+        rows={filteredSuppliers.map((c, i) => ({
           ...c,
           index: i + 1, // add index field for sorting display consistency
         }))}
-        gridCols="grid-cols-[60px_2.2fr_2fr_0.5fr_2.3fr_60px]"
-        renderRow={(customer, index) => (
+        gridCols="grid-cols-[60px_2.5fr_2.2fr_2fr_60px]"
+        renderRow={(supplier, index) => (
           <>
-            <div>{customer.index}.</div>
+            <div>{supplier.index}.</div>
             <div className="flex items-center gap-2">
-              <Store size={18} />
-              {customer.customer_name}
+              <Truck size={18} />
+              {supplier.supplier_name}
             </div>
             <div className="flex items-center gap-2">
-              <User size={18} />
-              {customer.person_name || "-"}
+              <Phone size={18} />
+              {supplier.phone_no || "-"}
             </div>
-            <div>{customer.rate || "-"}</div>
             <div className="text-center">
               <span
                 className={`px-3 py-1 rounded-full text-xs font-medium leading-0 tracking-wide ${
-                  customer.status === "active"
+                  supplier.status === "active"
                     ? "bg-green-100 text-green-700"
                     : "bg-red-200 text-red-700"
                 }`}
               >
-                {customer.status === "active" ? "Active" : "Inactive"}
+                {supplier.status === "active" ? "Active" : "Inactive"}
               </span>
             </div>
             <div className="flex justify-center">
               <DropdownMenu
                 items={[
                   {
-                    label: "Edit Customer",
+                    label: "Edit Supplier",
                     icon: Edit,
-                    onClick: () => console.log("Edit", customer._id),
+                    onClick: () => console.log("Edit", supplier._id),
                   },
                   {
-                    label: "Delete Customer",
+                    label: "Delete Supplier",
                     icon: Trash2,
-                    onClick: () => handleDelete(customer._id),
+                    onClick: () => handleDelete(supplier._id),
                   },
                   {
                     label:
-                      customer.status === "active" ? "In Active" : "Active",
-                    icon: customer.status === "active" ? X : Check,
+                      supplier.status === "active" ? "In Active" : "Active",
+                    icon: supplier.status === "active" ? X : Check,
                     onClick: async () => {
                       try {
                         const res = await api.patch(
-                          `/customers/toggle-status/${customer._id}`
+                          `/suppliers/toggle-status/${supplier._id}`
                         );
                         if (res.data.success) {
-                          setCustomers((prev) =>
+                          setSuppliers((prev) =>
                             prev.map((c) =>
-                              c._id === customer._id ? res.data.data : c
+                              c._id === supplier._id ? res.data.data : c
                             )
                           );
                         }
@@ -170,7 +167,7 @@ export default function CustomerShow() {
                       }
                     },
                     className:
-                      customer.status === "active"
+                      supplier.status === "active"
                         ? "text-red-700 hover:bg-red-200"
                         : "text-green-700 hover:bg-green-200",
                   },

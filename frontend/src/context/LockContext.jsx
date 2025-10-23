@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
 import { useToast } from "./ToastProvider";
+import api from "../utils/api"; 
 
 const LockContext = createContext();
 
@@ -14,7 +14,7 @@ export const LockProvider = ({ children }) => {
   useEffect(() => {
     const fetchPin = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/settings/pin");
+        const res = await api.get("/settings/pin");
         const pinFromDB = res.data.pin;
 
         setStoredPin(pinFromDB);
@@ -55,7 +55,7 @@ export const LockProvider = ({ children }) => {
 
   const setPin = async (pin) => {
     try {
-      await axios.post("http://localhost:5000/api/settings/pin", { pin });
+      await api.post("/settings/pin", { pin });
       setStoredPin(pin);
       setIsLocked(false);
       localStorage.setItem("isLocked", "false");

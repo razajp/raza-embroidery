@@ -8,17 +8,19 @@ export default function IconButton({
   className = "",
   type = "primary", // "primary" | "secondary" | "transparent"
   badge = null, // number | string | null
+  iconColor = null,
 }) {
   const { colors } = useTheme();
 
   const baseStyle = `
-    relative flex items-center justify-center w-10 h-10 rounded-xl bg-transparent group active:scale-85
+    relative flex items-center justify-center w-10 h-10 rounded-xl active:scale-85
   `;
 
   const typeStyles = {
-    primary: `${colors.primaryBtn}`,
-    secondary: `${colors.secondaryBtn || "bg-gray-200 hover:bg-gray-300"}`,
-    transparent: `bg-transparent hover:bg-gray-100`,
+    primary: `bg-transparent ${colors.primaryBtn} group`,
+    secondary: `bg-transparent ${colors.secondaryBtn || "bg-gray-200 hover:bg-gray-300"} group`,
+    transparent: `bg-transparent hover:bg-transparent cursor-pointer`,
+    danger: `${colors.bgDangerHover} cursor-pointer group`,
   };
 
   return (
@@ -31,7 +33,7 @@ export default function IconButton({
       {Icon && (
         <Icon
           size={size}
-          className={`group-hover:text-white ${colors.heading}`}
+          className={`${type === "danger" ? 'text-red-700' : 'group-hover:text-white'} ${iconColor || colors.heading}`}
         />
       )}
 

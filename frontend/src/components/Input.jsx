@@ -9,10 +9,12 @@ export default function Input({
   onEnter,
   placeholder,
   type = "text",
+  required = true,
   maxLength,
   inputMode,
   validators = [], // Array of validator objects { validate: fn, message: string }
   icon = null,
+  invertBg = false,
 }) {
   const { colors, borders } = useTheme();
   const [error, setError] = useState(null);
@@ -40,6 +42,8 @@ export default function Input({
 
   const handleChange = (e) => {
     let val = e.target.value;
+    console.log(val);
+    
 
     // Limit max length
     if (maxLength && val.length > maxLength) return;
@@ -68,7 +72,7 @@ export default function Input({
     <div className="relative w-full">
       {label && (
         <label className={`block mb-1 text-sm font-medium ${colors.heading}`}>
-          {label}
+          {label} {!required ? '(optional)' : ''}
         </label>
       )}
 
@@ -81,14 +85,15 @@ export default function Input({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
+          required={required}
           className={`w-full ps-4 pr-10 p-2 rounded-xl outline-none ${
             error ? "border border-red-500" : borders.primary
-          } ${colors.bg}`}
+          } ${!invertBg ? colors.bg : colors.secondaryBg}`}
         />
 
         {IconComponent && (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-gray-600">
-            <div className="w-px h-6 bg-gray-300 mx-2.5"></div>
+            <div className="w-px h-7 bg-gray-300 mx-2.5"></div>
             <IconComponent size={16} />
           </span>
         )}

@@ -14,11 +14,11 @@ export default function FloatingTopRightBar() {
       {/* Notification Button */}
       <IconButton icon={Bell} badge />
 
-      <div className="w-px h-6 bg-gray-300 mx-1"></div>
+      <div className="w-px h-7 bg-gray-300 mx-1"></div>
 
       <IconButton icon={Settings} onClick={() => navigate("/settings")} title="Settings" />
 
-      <div className="w-px h-6 bg-gray-300 mx-1"></div>
+      <div className="w-px h-7 bg-gray-300 mx-1"></div>
 
       <IconButton icon={Lock} onClick={lockApp} title="Lock App" />
     </div>

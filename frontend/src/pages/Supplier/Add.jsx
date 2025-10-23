@@ -11,29 +11,27 @@ import { allInputsValidate } from "../../utils/allInputsValidate";
 import usePageTitle from "../../hooks/usePageTitle"
 import api from "../../utils/api"; 
 
-export default function CustomerAdd() {
+export default function SupplierAdd() {
   const { colors, borders } = useTheme();
   const { addToast } = useToast();
-  usePageTitle('Add Customer')
+  usePageTitle('Add Supplier')
 
   // Form state
-  const [customerName, setCustomerName] = useState("");
-  const [personName, setPersonName] = useState("");
-  const [rate, setRate] = useState("");
+  const [supplierName, setSupplierName] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [status, setStatus] = useState("active");
 
   // ✅ Handle form submission
   const handleAdd = async () => {
     try {
-      if (!customerName || !personName || !rate) {
+      if (!supplierName) {
         addToast({ message: "Please fill in all fields", type: "error" });
         return;
       }
 
       const inputs = [
-        { value: customerName, validators: [validators.friendly, validators.unique("customers", "customer_name")] },
-        { value: personName, validators: [validators.friendly] },
-        { value: rate, validators: [validators.decimal] },
+        { value: supplierName, validators: [validators.friendly, validators.unique("suppliers", "supplier_name")] },
+        { value: phoneNo, validators: [validators.phone] },
       ];
 
       const { valid } = await allInputsValidate(inputs);
@@ -45,27 +43,25 @@ export default function CustomerAdd() {
       }
 
       const data = {
-        customer_name: customerName,
-        person_name: personName,
-        rate: parseFloat(rate),
+        supplier_name: supplierName,
+        phone_no: phoneNo,
         status: status,
       };
 
-      const res = await api.post("/customers/add", data);
+      const res = await api.post("/suppliers/add", data);
 
       if (res.data.success) {
-        addToast({ message: "Customer added successfully!", type: "success" });
+        addToast({ message: "Supplier added successfully!", type: "success" });
 
         // Reset form
-        setCustomerName("");
-        setPersonName("");
-        setRate("");
+        setSupplierName("");
+        setPhoneNo("");
         setStatus("active");
       }
     } catch (err) {
       console.error(err);
       addToast({
-        message: err.response?.data?.message || "Error adding customer",
+        message: err.response?.data?.message || "Error adding supplier",
         type: "error",
       });
     }
@@ -78,42 +74,33 @@ export default function CustomerAdd() {
           className={`p-8 rounded-2xl w-md grid grid-cols-1 gap-4 ${colors.secondaryBg} ${borders.primary}`}
         >
           <h2 className={`text-3xl text-center font-semibold mb-2.5 ${colors.heading}`}>
-            Add Customer
+            Add Supplier
           </h2>
+
           <Input
-            label="Customer Name"
-            value={customerName}
+            label="Supplier Name"
+            value={supplierName}
             onChange={(val) => {
               // Remove leading space (only at the start)
               if (val.startsWith(" ")) val = val.slice(1);
-              setCustomerName(textTransformers.capitalize(val));
+              setSupplierName(textTransformers.capitalize(val));
             }}
-            placeholder="Enter Customer Name"
-            icon="Store"
-            validators={[validators.friendly, validators.unique("customers", "customer_name")]}
+            placeholder="Enter Supplier Name"
+            icon="Truck"
+            validators={[validators.friendly, validators.unique("suppliers", "supplier_name")]}
             maxLength={30}
           />
 
-          {/* Person Name Input */}
           <Input
-            label="Person Name"
-            value={personName}
-            onChange={(val) => setPersonName(textTransformers.capitalize(val))}
-            placeholder="Enter Person Name"
-            icon="User"
-            validators={[validators.friendly]}
-            maxLength={30}
-          />
-
-          {/* Rate Input */}
-          <Input
-            label="Rates"
-            value={rate}
-            onChange={setRate}
-            placeholder="Enter Rate"
-            icon="BadgePercent"
-            validators={[validators.decimal]}
-            maxLength={10}
+            label="Phone No."
+            value={phoneNo}
+            onChange={(val) => {
+              setPhoneNo(textTransformers.phone(val));
+            }}
+            placeholder="Enter Phone No."
+            icon="Phone"
+            validators={[validators.phone]}
+            required={false}
           />
 
           {/* Status Select */}

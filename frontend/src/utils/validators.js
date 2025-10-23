@@ -38,7 +38,7 @@ export const validators = {
   },
 
   phone: {
-    validate: (value) => /^\d{0,11}$/.test(value),
+    validate: (value) => /^\d{0,4}-?\d{0,7}$/.test(value),
     message: "Phone number can have up to 11 digits",
   },
 

@@ -122,7 +122,7 @@ const Select = forwardRef(
             className="w-full px-4 py-2 rounded-xl text-black outline-none bg-transparent"
           />
           <span className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-gray-600">
-            <div className="w-px h-6 bg-gray-300 mx-2.5"></div>
+            <div className="w-px h-7 bg-gray-300 mx-2.5"></div>
             {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </span>
         </div>
@@ -132,7 +132,7 @@ const Select = forwardRef(
           <div className={`absolute z-50 w-full mt-1 rounded-xl shadow-lg border ${borders.primary} max-h-60 overflow-auto ${colors.bg}`}>
             {/* Search */}
             {searchable && (
-              <div className="p-1.5 pb-0">
+              <div className="p-1 pb-0">
                 <input
                   ref={searchRef}
                   type="text"
@@ -145,7 +145,7 @@ const Select = forwardRef(
             )}
 
             {/* Options */}
-            <div className="p-1.5 space-y-1.5">
+            <div className="p-1 space-y-1">
               {/* Default option */}
               {showDefault && (
                 <div

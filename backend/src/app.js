@@ -3,6 +3,7 @@ import cors from "cors";
 import customerRoutes from "./routes/customerRoutes.js";
 import settingRoutes from "./routes/settingRoutes.js";
 import validationRoutes from "./routes/validationRoutes.js";
+import supplierRoutes from "./routes/supplierRoutes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 // Routes
 app.use("/api/settings", settingRoutes);
 app.use("/api/customers", customerRoutes);
+app.use("/api/suppliers", supplierRoutes);
 app.use("/api/validate", validationRoutes);
 
 app.get("/", (req, res) => {
