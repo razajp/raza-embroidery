@@ -13,7 +13,7 @@ export default function FloatingTopLeftBar() {
       <div
         className={`flex items-center px-5 h-full rounded-xl font-medium leading-none ${colors.promaryHoveredBg} ${colors.heading}`}
       >
-        Raza Embroidery
+        ThreadOS <span className="text-xs pl-1" > | by SparkPair</span>
       </div>
     </div>
   );

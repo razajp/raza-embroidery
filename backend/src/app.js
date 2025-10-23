@@ -22,7 +22,7 @@ app.use("/api/suppliers", supplierRoutes);
 app.use("/api/validate", validationRoutes);
 
 app.get("/", (req, res) => {
-  res.send("RAZA Embroidery Backend is Live ✅");
+  res.send("ThreadOS Backend is Live ✅");
 });
 
 export default app;
