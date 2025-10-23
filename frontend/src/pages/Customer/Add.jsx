@@ -49,7 +49,7 @@ export default function CustomerAdd() {
         status: status,
       };
 
-      const res = await axios.post("http://localhost:5000/api/customers", data);
+      const res = await axios.post("http://localhost:5000/api/customers/add", data);
 
       if (res.data.success) {
         addToast({ message: "Customer added successfully!", type: "success" });

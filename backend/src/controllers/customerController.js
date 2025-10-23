@@ -27,7 +27,7 @@ export const customerController = {
   },
 
   // 📋 List all customers
-  async list(req, res) {
+  async show(req, res) {
     try {
       const customers = await Customer.find().sort({ createdAt: -1 });
       res.json({ success: true, data: customers });

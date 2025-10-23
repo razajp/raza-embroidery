@@ -6,6 +6,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { LockProvider } from "./context/LockContext";
 import { ToastProvider } from "./context/ToastProvider";
 import CustomerAdd from "./pages/Customer/Add";
+import CustomerShow from "./pages/Customer/Show";
 import Settings from "./pages/Settings";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/customers" element={<Navigate to="/customers/summary" replace />} />
                     <Route path="/customers/summary" element={<CustomerSummary />} />
                     <Route path="/customers/add" element={<CustomerAdd />} />
+                    <Route path="/customers/show" element={<CustomerShow />} />
                   </Routes>
                 </Layout>
           </BrowserRouter>
