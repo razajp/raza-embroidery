@@ -9,10 +9,12 @@ import { textTransformers } from "../../utils/textTransformers";
 import { useState } from "react";
 import axios from "axios";
 import { allInputsValidate } from "../../utils/allInputsValidate";
+import usePageTitle from "../../hooks/usePageTitle"
 
 export default function CustomerAdd() {
   const { colors, borders } = useTheme();
   const { addToast } = useToast();
+  usePageTitle('Add Customer')
 
   // Form state
   const [customerName, setCustomerName] = useState("");

@@ -2,9 +2,11 @@ import { useTheme } from "../context/ThemeContext";
 import { UserPlus, FileText, Users, CreditCard } from "lucide-react";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import usePageTitle from "../hooks/usePageTitle"
 
 export default function Home() {
   const { colors } = useTheme();
+  usePageTitle('Home')
 
   // Static Data
   const stats = [

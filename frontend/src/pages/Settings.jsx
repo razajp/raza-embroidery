@@ -1,9 +1,11 @@
 import { useTheme } from "../context/ThemeContext";
 import Button from "../components/Button";
 import { UserPlus, FileText, Users, CreditCard, Settings as SettingsIcon } from "lucide-react";
+import usePageTitle from "../hooks/usePageTitle"
 
 export default function Settings() {
   const { colors, borders } = useTheme();
+  usePageTitle('Settings')
 
   // Example settings sections
   const settingsSections = [

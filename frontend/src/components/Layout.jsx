@@ -12,7 +12,7 @@ export default function Layout({ children }) {
   if (loading) return null; // ya spinner show karo
 
   return (
-    <div className={`relative h-screen flex p-3 bg-[#3b3b3b]`}>
+    <div className={`relative h-screen flex p-2 bg-[#3b3b3b]`}>
       <main className={`flex flex-col grow h-full border rounded-3xl relative overflow-hidden p-5 ${colors.bg}`}>
         {isLocked && <LockScreen />}
         <div className="flex justify-between">
