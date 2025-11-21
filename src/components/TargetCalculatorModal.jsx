@@ -119,8 +119,8 @@ export default function TargetCalculatorModal({ onClose }) {
 
                 {/* Calculation Results */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-gray-300 pt-4 mt-4">
-                  <ResultField label="30%" value={calc.thirty.toFixed(1)} />
-                  <ResultField label="39%" value={calc.thirtyNine.toFixed(1)} />
+                  <ResultField label="30%" value={calc.thirty.toFixed(2)} varient='danger' />
+                  <ResultField label="39%" value={calc.thirtyNine.toFixed(2)} />
                   <ResultField label="Rounds" value={calc.rounds} />
                 </div>
               </div>
@@ -139,8 +139,8 @@ export default function TargetCalculatorModal({ onClose }) {
 
         {/* Summary Block */}
         <div className="mt-4 p-4 sm:p-6 bg-white border border-indigo-200 rounded-3xl shadow-lg grid grid-cols-1 md:grid-cols-3 gap-3">
-          <ResultField label="Total 30%" value={totals.total30.toFixed(1)} />
-          <ResultField label="Total 39%" value={totals.total39.toFixed(1)} />
+          <ResultField label="Total 30%" value={totals.total30.toFixed(2)} varient='danger' />
+          <ResultField label="Total 39%" value={totals.total39.toFixed(2)} />
           <ResultField label="Total Rounds" value={totals.totalRounds} />
         </div>
       </div>
@@ -165,11 +165,11 @@ function InputField({ label, value, onChange, placeholder }) {
   )
 }
 
-function ResultField({ label, value }) {
+function ResultField({ label, value, varient = 'normal' }) {
     return (
         <div className="flex items-center justify-between bg-white border border-gray-400 px-4 py-2 rounded-xl">
             <label className="text-gray-700 tracking-wide">{label}</label>
-            <div className="text-lg font-bold text-teal-600">
+            <div className={`text-lg font-bold ${varient == 'normal' ? 'text-teal-600' : varient == 'danger' ? 'text-red-600' : ''}`}>
                 {value}
             </div>
         </div>
