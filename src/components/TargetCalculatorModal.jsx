@@ -81,7 +81,7 @@ export default function TargetCalculatorModal({ onClose }) {
                 className="bg-gray-50 border border-gray-300 p-4 sm:p-6 rounded-3xl shadow-sm transition-all hover:shadow-md"
               >
                 <div className="flex justify-between items-center mb-4 px-2 pb-2 border-b border-gray-400">
-                  <h3 className="text-lg sm:text-xl font-semibold text-indigo-700">Design {i + 1}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold tracking-wide text-[#0a6465]">Design {i + 1}</h3>
                   
                   {/* Remove Button */}
                   {designs.length > 1 && (
@@ -131,7 +131,7 @@ export default function TargetCalculatorModal({ onClose }) {
         {/* Add Design Button */}
         <button
           onClick={addDesign}
-          className="w-full py-3 mt-4 bg-indigo-600 text-white rounded-2xl font-medium hover:bg-indigo-700 active:scale-[0.99] transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+          className="w-full py-3 mt-4 bg-[#127475]/90 text-white rounded-2xl font-medium hover:bg-[#127475] cursor-pointer active:scale-[0.99] transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
           <span>Add Another Design</span>
