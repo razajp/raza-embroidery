@@ -164,7 +164,7 @@ function InputField({ label, value, onChange, placeholder }) {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="border border-gray-400 px-4 py-2 rounded-xl bg-white focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 focus:outline-none transition-all w-full text-gray-800"
+        className="border border-gray-400 px-4 py-2 rounded-xl bg-white focus:ring-2 focus:ring-teal-300 focus:border-teal-400 focus:outline-none transition-all w-full"
       />
     </div>
   )
